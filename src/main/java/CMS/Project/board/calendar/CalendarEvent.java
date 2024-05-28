@@ -1,9 +1,6 @@
 package CMS.Project.board.calendar;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
@@ -12,9 +9,9 @@ import java.util.Date;
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class Calendar {
+public class CalendarEvent {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(unique = true, nullable = false)
