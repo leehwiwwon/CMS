@@ -24,11 +24,9 @@ public class ProductService {
         return productRepository.findById(code);
     }
 
-    public Product save(Product product) {
-        return productRepository.save(product);
-    }
+    public void save(Product product) { productRepository.save(product); }
 
-    public void deleteById(Long code) {
-        productRepository.deleteById(code);
+    public void deleteById(Long id, Long code) {
+        productRepository.deleteById(id);
     }
 }

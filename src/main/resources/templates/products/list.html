@@ -5,11 +5,11 @@
       xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset='utf-8'>
-    <title>Product List</title>
+    <title>물품 관리</title>
 </head>
 <body>
 <div class="container" layout:fragment="content">
-    <h1>Product List</h1>
+    <h1>등록된 물품 목록</h1>
     <table class="table table-striped">
         <thead>
         <tr>
@@ -30,12 +30,12 @@
             <td th:text="${product.counts}">95</td>
             <td>
                 <a th:href="@{/products/edit/{code}(code=${product.code})}" class="btn btn-warning">Edit</a>
-                <a th:href="@{/products/delete/{code}(code=${product.code})}" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</a>
+                <a th:href="@{/products/delete/{code}(code=${product.code})}" class="btn btn-danger" onclick="return confirm('삭제하시겠습니까?')">Delete</a>
             </td>
         </tr>
         </tbody>
     </table>
-    <a href="#" th:href="@{/products/new}" class="btn btn-primary">Add New Product</a>
+    <a href="#" th:href="@{/products/new}" class="btn btn-primary">물품 추가</a>
 </div>
 </body>
 </html>

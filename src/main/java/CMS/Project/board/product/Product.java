@@ -6,6 +6,7 @@ import lombok.*;
 
 @Entity
 @Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
@@ -16,7 +17,7 @@ public class Product extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column
-    private String code;
+    private Long code;
 
     @Column
     private String name;
@@ -25,8 +26,8 @@ public class Product extends BaseEntity {
     private String endDate;
 
     @Column
-    private String CurrentCounts;
+    private int currentCounts;
 
     @Column
-    private String counts;
+    private int counts;
 }

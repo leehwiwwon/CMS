@@ -38,9 +38,9 @@ public class ProductController {
         return "redirect:/products";
     }
 
-    @GetMapping("/edit/{code}")
-    public String showEditForm(@PathVariable Long code, Model model) {
-        Optional<Product> product = productService.findById(code);
+    @GetMapping("/edit/{id}")
+    public String showEditForm(@PathVariable Long id, Model model) {
+        Optional<Product> product = productService.findById(id);
         if (product.isPresent()) {
             model.addAttribute("product", product.get());
             return "products/form";
@@ -49,15 +49,15 @@ public class ProductController {
         }
     }
 
-    @PostMapping("/update/{code}")
-    public String updateProduct(@PathVariable Long code, @ModelAttribute Product product) {
+    @PostMapping("/update/{id}")
+    public String updateProduct(@PathVariable Long id, @ModelAttribute Product product) {
         productService.save(product);
         return "redirect:/products";
     }
 
-    @GetMapping("/delete/{code}")
-    public String deleteProduct(@PathVariable Long code) {
-        productService.deleteById(code);
+    @GetMapping("/delete/{id}")
+    public String deleteProduct(@PathVariable Long id, @RequestParam Long code) {
+        productService.deleteById(id, code);
         return "redirect:/products";
     }
 }
