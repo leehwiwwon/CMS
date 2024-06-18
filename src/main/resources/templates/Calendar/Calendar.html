@@ -1,28 +1,69 @@
 <!DOCTYPE html>
-<html lang='en'>
+<html lang='en'
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layout/default}">
 <head>
-    <title>calendar</title>
-    <meta charset='utf-8' />
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.12/index.global.min.js'></script>
-    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
+    <meta charset='utf-8'>
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/index.global.min.js'></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            var request = $.ajax({
-                url: "/calendar",
-                method: "GET",
+            var calendarEl = document.getElementById('calendar');
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                headerToolbar: {
+                    center: 'addEventButton'
+                },
+                events: [
+                    /*[[${events}]]*/
+                ],
+                customButtons: {
+                    addEventButton: {
+                        text: '빈 파트 일정 생성',
+                        click: function() {
+                            var title = prompt('빈 파트 시간 입력')
+                            if(!title){
+                                alert('빈 일정은 추가할 수 없습니다.');
+                                return;
+                            }
+
+                            var dateStr = prompt('추가하고 싶은 일정의 날짜를 YYYY-MM-DD 형식에 따라 입력하세요');
+                            var date = new Date(dateStr + 'T00:00:00'); // will be in local time
+
+                            if (!isNaN(date.valueOf())) { // valid?
+                                var event = {
+                                    title: title,
+                                    start: dateStr
+                                };
+
+                                $.ajax({
+                                    url: '/Calendar/add',
+                                    method: 'POST',
+                                    contentType: 'application/json',
+                                    data: JSON.stringify(event),
+                                    success: function(response) {
+                                        calendar.addEvent(response);
+                                        alert('일정 추가 성공');
+                                    },
+                                    error: function() {
+                                        alert('일정 추가 실패');
+                                    }
+                                });
+                            } else {
+                                alert('형식이 맞지 않습니다.');
+                            }
+                        }
+                    }
+                }
             });
-            request.done(function (data) {
-                var calenderEl = document.getElementById('calendar');
-                var calendar = new FullCalendar.Calendar(calenderEl, {
-                    initialView: 'dayGridMonth',
-                    events: data
-                });
-                calendar.render();
-            });
+            calendar.render();
         });
     </script>
 </head>
 <body>
-<div id='calendar'></div>
+<div class="container" layout:fragment="content">
+    <div id='calendar'></div>
+</div>
 </body>
 </html>

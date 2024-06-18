@@ -4,18 +4,23 @@ package CMS.Project.board.calendar;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class CalendarService {
 
-    @Autowired
-    private CalendarEventRepository eventRepository;
+    private final CalendarEventRepository eventRepository;
 
-    public CalendarEvent addEvent(CalendarEvent event) {
-        return eventRepository.save(event);
+    public CalendarService(CalendarEventRepository eventRepository) {
+        this.eventRepository = eventRepository;
     }
 
-    public void deleteEvent(Long eventId) {
-        eventRepository.deleteById(eventId);
+    public List<CalendarEvent> getAllEvents() {
+        return eventRepository.findAll();
+    }
+
+    public CalendarEvent saveEvent(CalendarEvent event) {
+        return eventRepository.save(event);
     }
 }
 

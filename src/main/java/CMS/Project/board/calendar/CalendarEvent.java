@@ -2,8 +2,7 @@ package CMS.Project.board.calendar;
 
 import jakarta.persistence.*;
 import lombok.*;
-
-import java.util.Date;
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -14,15 +13,10 @@ public class CalendarEvent {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(unique = true, nullable = false)
     private String title;
 
-    @Column(nullable = false)
-    private String description;
+    private LocalDate start;
 
-    @Column(nullable = false)
-    private Date startDate;
+    private LocalDate end;
 
-    @Column()
-    private Date endDate;
 }
