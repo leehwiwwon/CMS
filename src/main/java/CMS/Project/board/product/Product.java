@@ -1,10 +1,7 @@
 package CMS.Project.board.product;
 
 import CMS.Project.board.BaseEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -16,6 +13,9 @@ import lombok.*;
 public class Product extends BaseEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column
     private String code;
 
     @Column
@@ -23,6 +23,9 @@ public class Product extends BaseEntity {
 
     @Column
     private String endDate;
+
+    @Column
+    private String CurrentCounts;
 
     @Column
     private String counts;

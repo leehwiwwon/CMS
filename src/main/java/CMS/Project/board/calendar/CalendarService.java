@@ -22,5 +22,9 @@ public class CalendarService {
     public CalendarEvent saveEvent(CalendarEvent event) {
         return eventRepository.save(event);
     }
+
+    public void deleteEvent(Long eventId) {
+        eventRepository.deleteById(eventId);
+    }
 }
 

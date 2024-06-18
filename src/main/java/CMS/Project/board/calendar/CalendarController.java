@@ -28,6 +28,17 @@ public class CalendarController {
         return calendarService.saveEvent(event);
     }
 
+    @GetMapping("/events")
+    @ResponseBody
+    public List<CalendarEvent> getAllEvents(){
+        return calendarService.getAllEvents();
+    }
+
+    @DeleteMapping("/delete/{id}")
+    @ResponseBody
+    public void deleteEvent(@PathVariable Long id) {
+        calendarService.deleteEvent(id);
+    }
 //    @GetMapping("/Calendar")
 //    public String getEventCalendar() {
 //        return "Calendar/Calendar";
